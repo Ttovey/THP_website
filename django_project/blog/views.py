@@ -10,6 +10,8 @@ from django.views.generic import (
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
+from .forms import CommentForm
+from django.urls import reverse
 
 
 # def blog_home(request):
@@ -38,6 +40,11 @@ class UserPostListView(ListView):  # <app>/<model>_<viewtype>.html
 
 class PostDetailView(DetailView):
     model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
+
+    def get_absolute_url(self):
+        return reverse('post-detail', args=[str(self.pk)])
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

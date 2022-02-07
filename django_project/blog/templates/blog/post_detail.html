@@ -17,10 +17,18 @@
                 {% endif %}
             </div>
         </div>
+        <div>
         <h2 class="article-title">{{ object.title }}</h2>
         <p class="article-content">{{ object.content }}</p>
     </div>
 </article>
+<div class='content-section'>
+    <h2 class='article-metadata'>Comments</h2>
+    {% for comment in object.comment_set.all %}
+    <b>{{ comment.name }}</b> - <b>{{ comment.created_on|timesince }} ago</b>
+    <p>{{ comment.body }}</p>
+    {% endfor %}
+</div>
 
 
 {% endblock content %}
